@@ -1,5 +1,7 @@
 <?php
 
+require_once 'app/controller/editor-api.controller.php';
+require_once 'app/controller/game-api.controller.php';
 require_once 'libs/router/router.php';
 
 $router = new Router();
