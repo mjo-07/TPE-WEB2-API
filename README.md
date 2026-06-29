@@ -19,7 +19,7 @@ Este proyecto consiste en una API REST nativa desarrollada en PHP que permite ge
 {
   "nombre_empresa": "Nintendo",
   "pais": "Japon",
-  "sitio_web": "[https://nintendo.com](https://nintendo.com)",
+  "sitio_web": "https://nintendo.com",
   "valoracion": 5,
   "descripcion": "Compañía histórica de videojuegos",
   "imagen": "NULL" //para pruebas se obvió la carga de la imagen
@@ -68,13 +68,13 @@ Los endpoints de colecciones (`GET /editors` y `GET /games`) aceptan parámetros
 ### 1. Filtrado Dinámico (`filtrar_por` & `valor`)
 Para activar el filtro, es obligatorio enviar ambos parámetros en simultáneo.
 * **Filtros válidos en Editores:** `nombre_empresa`, `pais`, `valoracion`.
-* **Filtros válidos en Videojuegos:** `titulo`, `precio`, `valoracion`, `fecha_lanzamiento`, `id_editor`.
+* **Filtros válidos en Videojuegos:** `titulo`, `precio`, `valoracion`, `fecha_lanzamiento`, `id_editor`, `nombre_editor`.
 * **Lógica de comparación:** Si el campo es de texto (`nombre_empresa`, `pais`, `titulo`), el modelo aplica una búsqueda parcial de coincidencias mediante `LIKE %valor%`. Si el campo es numérico o un ID (`precio`, `id_editor`, `valoracion`), se aplica una coincidencia exacta (`= valor`).
 
 ### 2. Ordenamiento Dinámico (`order_by` & `order_dir`)
 Permite ordenar los registros devueltos por cualquier columna mediante una lista blanca de seguridad en el controlador. El sentido se define con `order_dir` siendo `ASC` (por defecto) o `DESC`.
-* **Columnas permitidas en Editores:** `id_editor`, `nombre_empresa`, `descripcion`, `pais`, `sitio_web`, `valoracion`.
-* **Columnas permitidas en Videojuegos:** `id_videojuego`, `titulo`, `descripcion`, `precio`, `valoracion`, `fecha_lanzamiento`, `id_editor`.
+* **Columnas permitidas en Editores:** `id_editor`, `nombre_empresa`, `pais`, `sitio_web`, `valoracion`.
+* **Columnas permitidas en Videojuegos:** `id_videojuego`, `titulo`, `precio`, `valoracion`, `fecha_lanzamiento`, `id_editor`.
 
 ### 3. Paginación Blindada (`page` & `limit`)
 Divide los resultados del listado en fragmentos o páginas controladas mediante `page` (número de página) y `limit` (elementos por página).
