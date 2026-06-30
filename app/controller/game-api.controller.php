@@ -29,7 +29,7 @@ class GameController
         $campoFiltro = $request->query->filtrar_por ?? null;
         $valorFiltro = $request->query->valor ?? null;
 
-        $columnasFiltroPermitidas = ['titulo', 'precio', 'valoracion', 'fecha_lanzamiento', 'id_editor'];
+        $columnasFiltroPermitidas = ['titulo', 'precio', 'valoracion', 'fecha_lanzamiento', 'id_editor', 'nombre_editor'];
 
         if ($campoFiltro !== null && !in_array($campoFiltro, $columnasFiltroPermitidas)) {
             return $response->json(["msg" => "El campo de filtrado '$campoFiltro' no es valido"], 400);
@@ -38,7 +38,7 @@ class GameController
         $orderBy = $request->query->order_by ?? null;
         $orderDir = $request->query->order_dir ?? 'ASC';
 
-        $columnasOrdenPermitidas = ['id_videojuego', 'titulo', 'descripcion', 'precio', 'valoracion', 'fecha_lanzamiento', 'id_editor'];
+        $columnasOrdenPermitidas = ['id_videojuego', 'titulo', 'precio', 'valoracion', 'fecha_lanzamiento', 'id_editor'];
 
         if ($orderBy !== null && !in_array($orderBy, $columnasOrdenPermitidas)) {
             return $response->json(["msg" => "El campo de ordenamiento '$orderBy' no es valido"], 400);

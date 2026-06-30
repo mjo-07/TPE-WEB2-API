@@ -37,7 +37,7 @@ class EditorController
         $orderBy = $request->query->order_by ?? null;
         $orderDir = $request->query->order_dir ?? 'ASC';
 
-        $columnasOrdenPermitidas = ['id_editor', 'nombre_empresa', 'descripcion', 'pais', 'sitio_web', 'valoracion'];
+        $columnasOrdenPermitidas = ['id_editor', 'nombre_empresa', 'pais', 'sitio_web', 'valoracion'];
         if ($orderBy !== null && !in_array($orderBy, $columnasOrdenPermitidas)) {
             $response->json(["msg" => "El campo de ordenamiento '$orderBy' no es valido"], 400);
             return;

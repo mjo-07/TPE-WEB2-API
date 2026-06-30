@@ -8,7 +8,7 @@ class ModelGame extends Model
     function get($id)
     {
         $pdo = $this->crearConexion();
-        $query = $pdo->prepare("SELECT v.*, e.id_editor, e.nombre_empresa FROM video_juego v JOIN editor e USING (id_editor) WHERE id_juego = ?");
+        $query = $pdo->prepare("SELECT v.*, e.id_editor, e.nombre_empresa AS nombre_editor FROM video_juego v JOIN editor e USING (id_editor) WHERE id_juego = ?");
         $query->execute([$id]);
         $game = $query->fetch(PDO::FETCH_OBJ);
         return $game;
@@ -18,13 +18,15 @@ class ModelGame extends Model
     {
         $pdo = $this->crearConexion();
 
-        $sql = "SELECT v.*, e.nombre_empresa FROM video_juego v JOIN editor e USING(id_editor)";
+        $sql = "SELECT v.*, e.nombre_empresa AS nombre_editor FROM video_juego v JOIN editor e USING(id_editor)";
         $params = [];
 
-        // 1. Filtros
         if ($filtro !== null && $valor !== null) {
             if ($filtro === 'titulo') {
                 $sql .= " WHERE v.titulo LIKE ?";
+                $params[] = "%" . $valor . "%";
+            } else if ($filtro === 'nombre_editor') {
+                $sql .= " WHERE e.nombre_empresa LIKE ?";
                 $params[] = "%" . $valor . "%";
             } else if ($filtro === 'precio' || $filtro === 'valoracion' || $filtro === 'id_editor') {
                 $sql .= " WHERE v.$filtro = ?";
@@ -32,9 +34,7 @@ class ModelGame extends Model
             }
         }
 
-        // 2. Ordenamiento
         if ($orderBy !== null) {
-            // Validamos contra ambigüedad si ordenan por id_editor o valoracion
             if ($orderBy === 'id_editor' || $orderBy === 'valoracion') {
                 $sql .= " ORDER BY v.$orderBy $dir";
             } else {
@@ -42,7 +42,6 @@ class ModelGame extends Model
             }
         }
 
-        // 3. Paginación
         if ($page !== null && $limit !== null) {
             $offset = ($page - 1) * $limit;
             $sql .= " LIMIT $limit OFFSET $offset";
@@ -79,11 +78,9 @@ class ModelGame extends Model
             $pdo = $this->crearConexion();
             $query = $pdo->prepare("DELETE FROM video_juego WHERE id_juego = ?");
             $query->execute([$id]);
-
-            return true; // Se eliminó correctamente
-
+            return true;
         } catch (PDOException $e) {
-            return false; // Ocurrió un error inesperado
+            return false;
         }
     }
 
@@ -95,23 +92,11 @@ class ModelGame extends Model
                 INSERT INTO video_juego (titulo, descripcion, precio, resenia, fecha_lanzamiento, imagen, id_editor) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $query->execute([$titulo, $descripcion, $precio, $resenia, $fechaLanzamiento, $imagen, $idEditor]);
 
-            // Devolvemos el ID generado por el autoincremental
             return $pdo->lastInsertId();
         } catch (PDOException $e) {
             return false;
         }
     }
-
-    //function update($id, $nombre, $precio, $lanzamiento, $valoracion, $id_editor, $descripcion, $resenia, $imagen)
-    //{
-    //    try {
-    //        $pdo = $this->crearConexion();
-    //        $query = $pdo->prepare("UPDATE video_juego SET titulo = ?, precio = ?, fecha_lanzamiento = ?, valoracion = ?, id_editor = ?, descripcion = ?, resenia = ?, imagen = ? WHERE id_juego = ?");
-    //        return $query->execute([$nombre, $precio, $lanzamiento, $valoracion, $id_editor, $descripcion, $resenia, $imagen, $id]);
-    //    } catch (PDOException $e) {
-    //        return false;
-    //    }
-    //}
 
     function update($id, $titulo, $descripcion, $precio, $resenia, $fechaLanzamiento, $imagen, $idEditor)
     {
