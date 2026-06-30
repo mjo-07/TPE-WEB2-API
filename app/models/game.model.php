@@ -84,13 +84,13 @@ class ModelGame extends Model
         }
     }
 
-    function insert($titulo, $descripcion, $precio, $resenia, $fechaLanzamiento, $imagen, $idEditor)
+    function insert($titulo, $descripcion, $precio, $resenia, $valoracion, $fechaLanzamiento, $imagen, $idEditor)
     {
         try {
             $pdo = $this->crearConexion();
             $query = $pdo->prepare("
-                INSERT INTO video_juego (titulo, descripcion, precio, resenia, fecha_lanzamiento, imagen, id_editor) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $query->execute([$titulo, $descripcion, $precio, $resenia, $fechaLanzamiento, $imagen, $idEditor]);
+                INSERT INTO video_juego (titulo, descripcion, precio, resenia, valoracion, fecha_lanzamiento, imagen, id_editor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $query->execute([$titulo, $descripcion, $precio, $resenia, $valoracion, $fechaLanzamiento, $imagen, $idEditor]);
 
             return $pdo->lastInsertId();
         } catch (PDOException $e) {
@@ -98,12 +98,12 @@ class ModelGame extends Model
         }
     }
 
-    function update($id, $titulo, $descripcion, $precio, $resenia, $fechaLanzamiento, $imagen, $idEditor)
+    function update($id, $titulo, $descripcion, $precio, $resenia, $valoracion, $fechaLanzamiento, $imagen, $idEditor)
     {
         try {
             $pdo = $this->crearConexion();
-            $query = $pdo->prepare("UPDATE video_juego SET titulo = ?, descripcion = ?, precio = ?, resenia = ?, fecha_lanzamiento = ?, imagen = ?, id_editor = ? WHERE id_juego = ?");
-            return $query->execute([$titulo, $descripcion, $precio, $resenia, $fechaLanzamiento, $imagen, $idEditor, $id]);
+            $query = $pdo->prepare("UPDATE video_juego SET titulo = ?, descripcion = ?, precio = ?, resenia = ?, valoracion = ?, fecha_lanzamiento = ?, imagen = ?, id_editor = ? WHERE id_juego = ?");
+            return $query->execute([$titulo, $descripcion, $precio, $resenia, $valoracion, $fechaLanzamiento, $imagen, $idEditor, $id]);
         } catch (PDOException $e) {
             return false;
         }
