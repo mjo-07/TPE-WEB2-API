@@ -72,14 +72,15 @@ class GameController
             return $response->json(["msg" => "Faltan datos obligatorios para crear el videojuego"], 400);
         }
 
-        $titulo           = $request->body->titulo;
-        $precio           = $request->body->precio;
+        $titulo = $request->body->titulo;
+        $precio = $request->body->precio;
         $fechaLanzamiento = $request->body->fecha_lanzamiento;
-        $idEditor         = (int)$request->body->id_editor;
-
-        $descripcion      = $request->body->descripcion ?? null;
-        $resenia          = $request->body->resenia ?? null;
-        $imagen           = $request->body->imagen ?? null;
+        $idEditor = (int)$request->body->id_editor;
+        
+        $valoracion = $request->body->valoracion ?? null;
+        $descripcion = $request->body->descripcion ?? null;
+        $resenia = $request->body->resenia ?? null;
+        $imagen = $request->body->imagen ?? null;
 
         $modelEditor = new ModelEditor();
         $editorExiste = $modelEditor->get($idEditor);
@@ -88,7 +89,7 @@ class GameController
             return $response->json(["msg" => "El id_editor ($idEditor) provisto no corresponde a ningun editor existente"], 400);
         }
 
-        $idNuevoJuego = $this->model->insert($titulo, $descripcion, $precio, $resenia, $fechaLanzamiento, $imagen, $idEditor);
+        $idNuevoJuego = $this->model->insert($titulo, $descripcion, $precio, $resenia, $valoracion, $fechaLanzamiento, $imagen, $idEditor);
 
         if (!$idNuevoJuego) {
             return $response->json(["msg" => "No se pudo crear el videojuego. Puede que el titulo ya exista."], 400);
@@ -126,21 +127,22 @@ class GameController
             return $response->json("Faltan datos obligatorios (titulo, precio, fecha o id_editor)", 400);
         }
 
-        $titulo           = $request->body->titulo;
-        $precio           = $request->body->precio;
+        $titulo = $request->body->titulo;
+        $precio = $request->body->precio;
         $fechaLanzamiento = $request->body->fecha_lanzamiento;
-        $idEditor         = (int)$request->body->id_editor;
+        $idEditor = (int)$request->body->id_editor;
 
-        $descripcion      = $request->body->descripcion ?? null;
-        $resenia          = $request->body->resenia ?? null;
-        $imagen           = $request->body->imagen ?? null;
+        $valoracion = $request->body->valoracion ?? null;
+        $descripcion = $request->body->descripcion ?? null;
+        $resenia = $request->body->resenia ?? null;
+        $imagen = $request->body->imagen ?? null;
 
         $modelEditor = new ModelEditor();
         if (!$modelEditor->get($idEditor)) {
             return $response->json("El id_editor ($idEditor) no corresponde a ningun editor existente", 400);
         }
 
-        $this->model->update($idJuego, $titulo, $descripcion, $precio, $resenia, $fechaLanzamiento, $imagen, $idEditor);
+        $this->model->update($idJuego, $titulo, $descripcion, $precio, $resenia, $valoracion, $fechaLanzamiento, $imagen, $idEditor);
 
         $juegoActualizado = $this->model->get($idJuego);
         return $response->json($juegoActualizado, 200);

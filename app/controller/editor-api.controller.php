@@ -73,12 +73,12 @@ class EditorController
         }
 
         $nombreEmpresa = $request->body->nombre_empresa;
-        $pais          = $request->body->pais;
-        $sitioWeb      = $request->body->sitio_web;
+        $pais = $request->body->pais;
+        $sitioWeb = $request->body->sitio_web;
 
-        $descripcion   = $request->body->descripcion ?? null;
-        $valoracion    = $request->body->valoracion ?? null;
-        $imagen        = $request->body->imagen ?? null;
+        $descripcion = $request->body->descripcion ?? null;
+        $valoracion = $request->body->valoracion ?? null;
+        $imagen = $request->body->imagen ?? null;
 
         $idNuevo = $this->model->insert($nombreEmpresa, $pais, $sitioWeb, $valoracion, $descripcion, $imagen);
 
@@ -120,12 +120,12 @@ class EditorController
         }
 
         $nombreEmpresa = $request->body->nombre_empresa;
-        $pais          = $request->body->pais;
-        $sitioWeb      = $request->body->sitio_web;
+        $pais = $request->body->pais;
+        $sitioWeb = $request->body->sitio_web;
 
-        $descripcion   = $request->body->descripcion ?? null;
-        $valoracion    = $request->body->valoracion ?? null;
-        $imagen        = $request->body->imagen ?? null;
+        $descripcion = $request->body->descripcion ?? null;
+        $valoracion = $request->body->valoracion ?? null;
+        $imagen = $request->body->imagen ?? null;
 
         $this->model->update($idEditor, $nombreEmpresa, $pais, $sitioWeb, $valoracion, $descripcion, $imagen);
 
