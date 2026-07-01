@@ -88,32 +88,32 @@ A continuación, se detallan ejemplos reales de consultas combinadas listas para
 
 * **Filtrar Editores por País (Parcial):** Trae los editores radicados en Japón.
   ```text
-  GET http://localhost/tu_proyecto/editors?filtrar_por=pais&valor=Japon
+  GET http://localhost/tu_proyecto/PI/editors?filtrar_por=pais&valor=Japon
   ```
 
 * **Filtrar Juegos por Editor (Exacto):** Trae solo los juegos pertenecientes al editor con ID 2.
   ```text
-  GET http://localhost/tu_proyecto/games?filtrar_por=id_editor&valor=2
+  GET http://localhost/tu_proyecto/api/games?filtrar_por=id_editor&valor=2
   ```
 
 * **Filtrar Juegos por Título (Parcial):** Busca cualquier juego que contenga la palabra "Zelda".
   ```text
-  GET http://localhost/tu_proyecto/games?filtrar_por=titulo&valor=Zelda
+  GET http://localhost/tu_proyecto/api/games?filtrar_por=titulo&valor=Zelda
   ```
 
 * **Ordenar Juegos por Precio:** Lista todos los videojuegos ordenados del más caro al más barato.
   ```text
-  GET http://localhost/tu_proyecto/games?order_by=precio&order_dir=DESC
+  GET http://localhost/tu_proyecto/api/games?order_by=precio&order_dir=DESC
   ```
 
 * **Paginación Pura de Editores:** Trae una sección reducida de los primeros 3 editores de la lista.
   ```text
-  GET http://localhost/tu_proyecto/editors?page=1&limit=3
+  GET http://localhost/tu_proyecto/api/editors?page=1&limit=3
   ```
 
 * **Query Combinada Completa (Videojuegos):** Filtra los videojuegos del editor 1, ordenados alfabéticamente por su título de forma ascendente, mostrando los primeros 5 resultados de la página 1.
   ```text
-  GET http://localhost/tu_proyecto/games?filtrar_por=id_editor&valor=1&order_by=titulo&order_dir=ASC&page=1&limit=5
+  GET http://localhost/tu_proyecto/api/games?filtrar_por=id_editor&valor=1&order_by=titulo&order_dir=ASC&page=1&limit=5
   ```
 
 ---
