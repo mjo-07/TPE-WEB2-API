@@ -1,10 +1,10 @@
-# API REST - Sistema de Videojuegos y Editores 🎮
+# API REST - Sistema de Videojuegos y Editores
 
 Este proyecto consiste en una API REST nativa desarrollada en PHP que permite gestionar un catálogo de videojuegos y sus empresas editoras. Implementa operaciones CRUD completas, validaciones de integridad referencial en la base de datos, y herramientas avanzadas de filtrado, ordenamiento y paginación dinámicos.
 
-## 📋 Documentación de Endpoints
+##  Documentación de Endpoints
 
-### 🏢 Sección: Editores (`editors`)
+###  Sección: Editores (`editors`)
 
 | Método | Endpoint | Descripción | Estado Exitoso |
 | :--- | :--- | :--- | :--- |
@@ -14,7 +14,7 @@ Este proyecto consiste en una API REST nativa desarrollada en PHP que permite ge
 | **PUT** | `/editors/:id` | Actualiza de manera total los datos de un editor existente | `200 OK` |
 | **DELETE** | `/editors/:id`| Elimina un editor del sistema si no tiene restricciones | `204 No Content` |
 
-#### 📥 Ejemplo de Body para POST / PUT (`editors`)
+#### Ejemplo de Body para POST / PUT (`editors`)
 ```json
 {
   "nombre_empresa": "Nintendo",
@@ -26,13 +26,13 @@ Este proyecto consiste en una API REST nativa desarrollada en PHP que permite ge
 }
 ```
 
-#### 📋 Especificación de Campos (`editors`)
+#### Especificación de Campos (`editors`)
 * **Campos Obligatorios:** `nombre_empresa`, `pais`, `sitio_web`. Si alguno de estos campos falta o está vacío en el JSON enviado, la API interrumpe el flujo y responde inmediatamente con un código `400 Bad Request`.
 * **Campos Opcionales:** `descripcion`, `valoracion`, `imagen`. Estos campos permiten valores nulos (`NULL`) en la base de datos. Si el cliente no los envía en el JSON, el controlador les asigna `null` automáticamente antes de procesar la consulta.
 
 ---
 
-### 🕹️ Sección: Videojuegos (`games`)
+### Sección: Videojuegos (`games`)
 
 | Método | Endpoint | Descripción | Estado Exitoso |
 | :--- | :--- | :--- | :--- |
@@ -42,7 +42,7 @@ Este proyecto consiste en una API REST nativa desarrollada en PHP que permite ge
 | **PUT** | `/games/:id` | Actualiza de manera total los datos de un videojuego existente | `200 OK` |
 | **DELETE** | `/games/:id` | Elimina un videojuego del catálogo de forma permanente | `204 No Content` |
 
-#### 📥 Ejemplo de Body para POST / PUT (`games`)
+#### Ejemplo de Body para POST / PUT (`games`)
 ```json
 {
   "titulo": "The Legend of Zelda: Breath of the Wild",
@@ -55,13 +55,13 @@ Este proyecto consiste en una API REST nativa desarrollada en PHP que permite ge
 }
 ```
 
-#### 📋 Especificación de Campos (`games`)
+#### Especificación de Campos (`games`)
 * **Campos Obligatorios:** `titulo`, `precio`, `fecha_lanzamiento`, `id_editor`. Si alguno falta en el JSON, la API devuelve un `400 Bad Request`. Adicionalmente, el campo `id_editor` se valida contra la base de datos: si el ID provisto no pertenece a ningún editor existente, la API frena la inserción y arroja un `400 Bad Request` informando el error de clave foránea.
 * **Campos Opcionales:** `descripcion`, `resenia`, `imagen`. Estos campos aceptan valores vacíos o nulos (`NULL`), flexibilizando la carga o actualización de la ficha técnica del videojuego.
 
 ---
 
-## ⚙️ Parámetros de Query Disponibles (Endpoints de Listas)
+## Parámetros de Query Disponibles (Endpoints de Listas)
 
 Los endpoints de colecciones (`GET /editors` y `GET /games`) aceptan parámetros de consulta dinámicos (*Query Params*) en la URL para procesar las búsquedas en el servidor:
 
@@ -82,7 +82,7 @@ Divide los resultados del listado en fragmentos o páginas controladas mediante 
 
 ---
 
-### 🚀 Ejemplos de Uso
+### Ejemplos de Uso
 
 A continuación, se detallan ejemplos reales de consultas combinadas listas para testear:
 
@@ -118,7 +118,7 @@ A continuación, se detallan ejemplos reales de consultas combinadas listas para
 
 ---
 
-## ⚠️ Códigos de Error Manejados
+## Códigos de Error Manejados
 El sistema responde de manera consistente utilizando códigos de estado HTTP estandarizados acompañados de un mensaje aclaratorio en formato JSON:
 
 * **`400 Bad Request`**: Se emite si faltan campos obligatorios en el cuerpo del JSON enviado (`POST` / `PUT`), si se intentan utilizar campos de filtrado u ordenamiento fuera de las listas blancas permitidas, o si se intenta asociar un juego a un `id_editor` inexistente. En la sección de editores, este código también se arroja si se intenta eliminar un editor que posee videojuegos asociados, atrapando el código de error `1451` de restricción de clave foránea de MariaDB.
