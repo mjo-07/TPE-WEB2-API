@@ -22,7 +22,7 @@ Este proyecto consiste en una API REST nativa desarrollada en PHP que permite ge
   "sitio_web": "https://nintendo.com",
   "valoracion": 5,
   "descripcion": "Compañía histórica de videojuegos",
-  "imagen": "NULL" //para pruebas se obvió la carga de la imagen
+  "imagen": null
 }
 ```
 
@@ -51,7 +51,7 @@ Este proyecto consiste en una API REST nativa desarrollada en PHP que permite ge
   "id_editor": 1,
   "descripcion": "Un juego de aventura de mundo abierto.",
   "resenia": "Una obra maestra de la industria.",
-  "imagen": "NULL" //para pruebas se obvió la carga de la imagen
+  "imagen": null
 }
 ```
 

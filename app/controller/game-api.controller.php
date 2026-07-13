@@ -6,24 +6,24 @@ class GameController
 
     private $model;
 
-    function __construct()
+    public function __construct()
     {
         $this->model = new ModelGame();
     }
 
-    function getGame($request, $response)
+    public function getGame($request, $response)
     {
 
         $idGame = $request->params->id;
         $game = $this->model->get($idGame);
 
         if (!$game) {
-            return $response->jasn("El juego con el id=$idGame no existe en la base de datos", 404);
+            return $response->json("El juego con el id=$idGame no existe en la base de datos", 404);
         }
         $response->json($game, 200);
     }
     
-    function getGames($request, $response)
+    public function getGames($request, $response)
     {
 
         $campoFiltro = $request->query->filtrar_por ?? null;
@@ -62,13 +62,11 @@ class GameController
         return $response->json($juegos, 200);
     }
 
-    function createGame($request, $response)
+    public function createGame($request, $response)
     {
-        if (
-            empty($request->body->titulo) || empty($request->body->descripcion) ||
+        if (empty($request->body->titulo) || empty($request->body->descripcion) ||
             empty($request->body->precio) || empty($request->body->fecha_lanzamiento) ||
-            empty($request->body->id_editor)
-        ) {
+            empty($request->body->id_editor)) {
             return $response->json(["msg" => "Faltan datos obligatorios para crear el videojuego"], 400);
         }
 
@@ -99,7 +97,7 @@ class GameController
         return $response->json($nuevoJuego, 201);
     }
 
-    function deleteGame($request, $response)
+    public function deleteGame($request, $response)
     {
         $idGame = $request->params->id;
         $game = $this->model->get($idGame);
@@ -113,7 +111,7 @@ class GameController
         return $response->json("El juego con el id=$idGame se eliminó correctamente", 204);
     }
 
-    function updateGame($request, $response)
+    public function updateGame($request, $response)
     {
         $idJuego = $request->params->id;
         

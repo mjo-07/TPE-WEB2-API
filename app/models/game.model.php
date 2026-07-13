@@ -1,12 +1,9 @@
 <?php
 require_once 'Model.php';
 
-class ModelGame extends Model
-{
+class ModelGame extends Model{
 
-
-    function get($id)
-    {
+    public function get($id){
         $pdo = $this->crearConexion();
         $query = $pdo->prepare("SELECT v.*, e.id_editor, e.nombre_empresa AS nombre_editor FROM video_juego v JOIN editor e USING (id_editor) WHERE id_juego = ?");
         $query->execute([$id]);
@@ -14,8 +11,7 @@ class ModelGame extends Model
         return $game;
     }
 
-    function getAll($filtro, $valor, $orderBy, $dir, $page, $limit)
-    {
+    public function getAll($filtro, $valor, $orderBy, $dir, $page, $limit){
         $pdo = $this->crearConexion();
 
         $sql = "SELECT v.*, e.nombre_empresa AS nombre_editor FROM video_juego v JOIN editor e USING(id_editor)";
@@ -54,8 +50,7 @@ class ModelGame extends Model
 
 
 
-    function getGamesDestacados($valoracion)
-    {
+    public function getGamesDestacados($valoracion){
         $pdo = $this->crearConexion();
         $query = $pdo->prepare("SELECT titulo AS nombre, imagen, id_juego AS id FROM video_juego WHERE valoracion = ? LIMIT 3");
         $query->execute([$valoracion]);
@@ -63,8 +58,7 @@ class ModelGame extends Model
         return $destacados;
     }
 
-    function getGamesByEditor($idEditor)
-    {
+    public function getGamesByEditor($idEditor){
         $pdo = $this->crearConexion();
         $query = $pdo->prepare("SELECT * FROM video_juego WHERE id_editor = ?");
         $query->execute([$idEditor]);
@@ -72,8 +66,7 @@ class ModelGame extends Model
         return $games;
     }
 
-    function delete($id)
-    {
+    public function delete($id){
         try {
             $pdo = $this->crearConexion();
             $query = $pdo->prepare("DELETE FROM video_juego WHERE id_juego = ?");
@@ -84,8 +77,7 @@ class ModelGame extends Model
         }
     }
 
-    function insert($titulo, $descripcion, $precio, $resenia, $valoracion, $fechaLanzamiento, $imagen, $idEditor)
-    {
+    public function insert($titulo, $descripcion, $precio, $resenia, $valoracion, $fechaLanzamiento, $imagen, $idEditor){
         try {
             $pdo = $this->crearConexion();
             $query = $pdo->prepare("
@@ -98,8 +90,7 @@ class ModelGame extends Model
         }
     }
 
-    function update($id, $titulo, $descripcion, $precio, $resenia, $valoracion, $fechaLanzamiento, $imagen, $idEditor)
-    {
+    public function update($id, $titulo, $descripcion, $precio, $resenia, $valoracion, $fechaLanzamiento, $imagen, $idEditor){
         try {
             $pdo = $this->crearConexion();
             $query = $pdo->prepare("UPDATE video_juego SET titulo = ?, descripcion = ?, precio = ?, resenia = ?, valoracion = ?, fecha_lanzamiento = ?, imagen = ?, id_editor = ? WHERE id_juego = ?");
