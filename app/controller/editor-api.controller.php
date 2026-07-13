@@ -6,13 +6,11 @@ class EditorController
 
     private $model;
 
-    function __construct()
-    {
+    public function __construct(){
         $this->model = new ModelEditor();
     }
 
-    function getEditor($request, $response)
-    {
+    public function getEditor($request, $response){
         $idEditor = $request->params->id;
         $editor = $this->model->get($idEditor);
 
@@ -22,8 +20,7 @@ class EditorController
         return $response->json($editor, 200);
     }
 
-    function getEditors($request, $response)
-    {
+    public function getEditors($request, $response){
 
         $campoFiltro = $request->query->filtrar_por ?? null;
         $valorFiltro = $request->query->valor ?? null;
@@ -65,8 +62,7 @@ class EditorController
         $response->json($editores, 200);
     }
 
-    function createEditor($request, $response)
-    {
+    public function createEditor($request, $response){
 
         if (empty($request->body->nombre_empresa) || empty($request->body->pais) || empty($request->body->sitio_web)) {
             return $response->json(["msg" => "Faltan datos obligatorios (nombre_empresa, pais o sitio_web)"], 400);
@@ -90,8 +86,7 @@ class EditorController
         return $response->json($nuevoEditor, 201);
     }
 
-    public function deleteEditor($request, $response)
-    {
+    public function deleteEditor($request, $response){
         $idEditor = $request->params->id;
         $editor = $this->model->get($idEditor);
 
@@ -106,8 +101,7 @@ class EditorController
         return $response->json("El editor con el id=$idEditor se eliminó correctamente", 204);
     }
 
-    function updateEditor($request, $response)
-    {
+    public function updateEditor($request, $response){
         $idEditor = $request->params->id;
 
         $editor = $this->model->get($idEditor);

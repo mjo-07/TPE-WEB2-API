@@ -4,7 +4,7 @@ require_once 'Model.php';
 class ModelEditor extends Model
 {
 
-    function get($id)
+    public function get($id)
     {
         $pdo = $this->crearConexion();
         $query = $pdo->prepare("SELECT * FROM editor WHERE id_editor = ?");
@@ -13,15 +13,8 @@ class ModelEditor extends Model
         return $editor;
     }
 
-    function getAll($filtro, $valor, $orderBy, $dir, $page, $limit)
-    {
+    public function getAll($filtro, $valor, $orderBy, $dir, $page, $limit){
         $pdo = $this->crearConexion();
-
-        if ($filtro === null && $valor === null && $orderBy === null && $page === null && $limit === null) {
-            $query = $pdo->prepare("SELECT * FROM editor");
-            $query->execute();
-            return $query->fetchAll(PDO::FETCH_OBJ);
-        }
 
         $sql = "SELECT * FROM editor";
         $params = [];
@@ -50,8 +43,7 @@ class ModelEditor extends Model
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
-    function delete($id)
-    {
+    public function delete($id){
         try {
             $pdo = $this->crearConexion();
             $query = $pdo->prepare("DELETE FROM editor WHERE id_editor = ?");
@@ -67,8 +59,7 @@ class ModelEditor extends Model
         }
     }
 
-    function insert($nombreEmpresa, $pais, $sitioWeb, $valoracion, $descripcion, $imagen)
-    {
+    public function insert($nombreEmpresa, $pais, $sitioWeb, $valoracion, $descripcion, $imagen){
 
         try {
             $pdo = $this->crearConexion();
@@ -80,8 +71,7 @@ class ModelEditor extends Model
         }
     }
 
-    function update($id, $nombreEmpresa, $pais, $sitioWeb, $valoracion, $descripcion, $imagen)
-    {
+    public function update($id, $nombreEmpresa, $pais, $sitioWeb, $valoracion, $descripcion, $imagen){
         try {
             $pdo = $this->crearConexion();
             $query = $pdo->prepare("UPDATE editor SET nombre_empresa = ?, pais = ?, sitio_web = ?, valoracion = ?, descripcion = ?, imagen = ? WHERE id_editor = ?");
